@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional extreme motorsport racing - custom engine builds and high-speed competition">
+  <meta name="theme-color" content="#c41e0a">
+  <title>Extreme Motorsport Racing | Custom Builds & Competition</title>
+  
+  <!-- Preconnect to external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ========================================
+       CSS RESET & BASE STYLES
+       ======================================== */
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ========================================
+       CSS CUSTOM PROPERTIES (Design Tokens)
+       ======================================== */
+    
+    :root {
+      /* Colors - OKLCH with fallbacks */
+      --primary: oklch(0.55 0.25 30);
+      --primary-light: oklch(0.65 0.22 35);
+      --primary-dark: oklch(0.45 0.28 28);
+      --accent: oklch(0.75 0.20 85);
+      --accent-dark: oklch(0.65 0.18 80);
+      --dark: oklch(0.15 0.02 280);
+      --darker: oklch(0.10 0.01 280);
+      --light: oklch(0.98 0.01 280);
+      --gray: oklch(0.50 0.02 280);
+      --gray-light: oklch(0.85 0.01 280);
+      --gray-dark: oklch(0.30 0.02 280);
+      
+      /* Fluid Typography Scale */
+      --fs-300: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+      --fs-400: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+      --fs-500: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
+      --fs-600: clamp(1.375rem, 1.2rem + 0.875vw, 1.75rem);
+      --fs-700: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+      --fs-800: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+      --fs-900: clamp(3rem, 2.5rem + 3vw, 5rem);
+      
+      /* Spacing Scale */
+      --space-xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.75rem);
+      --space-sm: clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem);
+      --space-md: clamp(1rem, 0.85rem + 0.75vw, 1.75rem);
+      --space-lg: clamp(1.5rem, 1.25rem + 1.25vw, 2.75rem);
+      --space-xl: clamp(2rem, 1.5rem + 2.5vw, 4.5rem);
+      --space-2xl: clamp(3rem, 2rem + 5vw, 8rem);
+      
+      /* Layout */
+      --max-width: 1440px;
+      --content-width: 75ch;
+      --border-radius-sm: 0.25rem;
+      --border-radius-md: 0.5rem;
+      --border-radius-lg: 1rem;
+      
+      /* Transitions */
+      --transition-fast: 150ms ease-in-out;
+      --transition-base: 250ms ease-in-out;
+      --transition-slow: 400ms ease-in-out;
+      
+      /* Z-index Scale */
+      --z-base: 1;
+      --z-dropdown: 100;
+      --z-sticky: 500;
+      --z-overlay: 900;
+      --z-modal: 1000;
+      --z-toast: 1100;
+    }
+
+    /* Fallback colors for browsers that don't support OKLCH */
+    @supports not (color: oklch(0 0 0)) {
+      :root {
+        --primary: #c41e0a;
+        --primary-light: #e63520;
+        --primary-dark: #a01808;
+        --accent: #ffd700;
+        --accent-dark: #ccac00;
+        --dark: #1a1a1f;
+        --darker: #0d0d10;
+        --light: #fafafa;
+        --gray: #7a7a7a;
+        --gray-light: #d9d9d9;
+        --gray-dark: #4a4a4a;
+      }
+    }
+
+    /* ========================================
+       BASE HTML ELEMENTS
+       ======================================== */
+    
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--darker);
+      color: var(--light);
+      line-height: 1.4;
+      overflow-x: hidden;
+      font-size: var(--fs-400);
+      min-block-size: 100vh;
+    }
+
+    /* ========================================
+       UTILITY CLASSES
+       ======================================== */
+    
+    .sr-only {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .skip-link {
+      position: absolute;
+      inset-block-start: -100%;
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--darker);
+      padding: var(--space-sm) var(--space-md);
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: var(--border-radius-md);
+      z-index: var(--z-toast);
+      transition: inset-block-start var(--transition-base);
+    }
+
+    .skip-link:focus {
+      inset-block-start: var(--space-sm);
+    }
+
+    /* ========================================
+       HEADER & NAVIGATION
+       ======================================== */
+    
+    header {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      z-index: var(--z-modal);
+      background: linear-gradient(180deg, rgba(13, 13, 16, 0.95) 0%, transparent 100%);
+      backdrop-filter: blur(10px);
+      transition: background var(--transition-base);
+    }
+
+    header.scrolled {
+      background: rgba(13, 13, 16, 0.98);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-block: var(--space-sm);
+      padding-inline: var(--space-md);
+      margin-inline: auto;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-700);
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .logo i {
+      -webkit-text-fill-color: var(--accent);
+      font-size: var(--fs-600);
+    }
+
+    /* Mobile-first navigation */
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      list-style: none;
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline-end: -100%;
+      inline-size: min(300px, 80vw);
+      block-size: 100vh;
+      block-size: 100dvh;
+      background: rgba(13, 13, 16, 0.98);
+      backdrop-filter: blur(20px);
+      padding-block: 5rem 2rem;
+      padding-inline: 2rem;
+      transition: inset-inline-end var(--transition-slow) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      border-inline-start: 1px solid rgba(255, 215, 0, 0.2);
+      overflow-y: auto;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+      inset-inline-end: 0;
+    }
+
+    .nav-links li {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: opacity var(--transition-base), transform var(--transition-base);
+    }
+
+    .nav-links.active li {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+    .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+    .nav-links.active li:nth-child(4) { transition-delay: 0.4s; }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--fs-600);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      position: relative;
+      padding-block: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: color var(--transition-base);
+    }
+
+    .nav-links a i {
+      color: var(--accent);
+      font-size: var(--fs-500);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      inset-block-end: 0;
+      inset-inline-start: 0;
+      inline-size: 0;
+      block-size: 2px;
+      background: var(--accent);
+      transition: inline-size var(--transition-base);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .nav-links a.active {
+      color: var(--accent);
+      outline: none;
+    }
+
+    .nav-links a.active::after,
+    .nav-links a:focus-visible::after,
+    .nav-links a:hover::after {
+      inline-size: 100%;
+    }
+
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 2px solid var(--accent);
+      border-radius: var(--border-radius-sm);
+      cursor: pointer;
+      padding: var(--space-xs);
+      z-index: calc(var(--z-modal) + 1);
+      min-inline-size: 44px;
+      min-block-size: 44px;
+      position: relative;
+      transition: all var(--transition-base);
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 215, 0, 0.1);
+      transform: scale(1.05);
+    }
+
+    .menu-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .menu-toggle .menu-icon,
+    .menu-toggle .close-icon {
+      font-size: var(--fs-600);
+      color: var(--accent);
+      transition: all var(--transition-base);
+      position: absolute;
+    }
+
+    .menu-toggle .menu-icon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    .menu-toggle .close-icon {
+      opacity: 0;
+      transform: rotate(180deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon {
+      opacity: 0;
+      transform: rotate(-180deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] .close-icon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: var(--z-overlay);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .mobile-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Desktop navigation */
+    @media (min-width: 769px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .mobile-overlay {
+        display: none !important;
+      }
+
+      .nav-links {
+        position: static;
+        flex-direction: row;
+        gap: var(--space-md);
+        inline-size: auto;
+        block-size: auto;
+        background: transparent;
+        backdrop-filter: none;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        overflow-y: visible;
+      }
+
+      .nav-links li {
+        opacity: 1;
+        transform: none;
+      }
+
+      .nav-links a {
+        font-size: var(--fs-400);
+        padding-block: var(--space-xs);
+      }
+
+      .nav-links a i {
+        font-size: var(--fs-300);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      nav {
+        padding-inline: var(--space-xl);
+      }
+
+      .nav-links {
+        gap: var(--space-lg);
+      }
+
+      .nav-links a {
+        font-size: var(--fs-500);
+      }
+    }
+
+    /* ========================================
+       HERO SECTION
+       ======================================== */
+    
+    .hero {
+      position: relative;
+      min-block-size: 110vh;
+      min-block-size: 110dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+      padding-inline: var(--space-md);
+      padding-block: var(--space-2xl);
+    }
+
+    .video-container {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+    }
+
+    .speed-canvas {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      z-index: 1;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top, rgba(196, 30, 10, 0.4) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(230, 53, 32, 0.2) 0%, transparent 60%, rgba(196, 30, 10, 0.3) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-inline-size: 900px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-900);
+      line-height: 1;
+      letter-spacing: 0.05em;
+      margin-block-end: var(--space-md);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      animation: slideInFromLeft 0.8s ease-out;
+    }
+
+    .hero-subtitle {
+      font-size: var(--fs-500);
+      font-weight: 600;
+      color: var(--gray-light);
+      margin-block-end: var(--space-lg);
+      letter-spacing: 0.03em;
+      animation: slideInFromRight 0.8s ease-out;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding-block: var(--space-xs);
+      padding-inline: var(--space-md);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: var(--fs-400);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: var(--border-radius-md);
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition-base);
+      border: 2px solid transparent;
+      min-inline-size: 44px;
+      min-block-size: 44px;
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .hero-cta:hover::before,
+    .hero-cta:focus-visible::before {
+      opacity: 1;
+    }
+
+    .hero-cta:hover,
+    .hero-cta:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(196, 30, 10, 0.4);
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .hero-cta span,
+    .hero-cta i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-cta i {
+      transition: transform var(--transition-base);
+    }
+
+    .hero-cta:hover i {
+      transform: translateX(5px);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      inset-block-end: var(--space-xl);
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator i {
+      font-size: var(--fs-700);
+      color: var(--accent);
+      opacity: 0.7;
+      transition: opacity var(--transition-base);
+    }
+
+    .scroll-indicator:hover i {
+      opacity: 1;
+    }
+
+    @media (min-width: 769px) {
+      .hero {
+        padding-inline: var(--space-xl);
+      }
+
+      .hero-subtitle {
+        font-size: var(--fs-600);
+      }
+    }
+
+    /* ========================================
+       SECTIONS - SHARED STYLES
+       ======================================== */
+    
+    section {
+      padding-block: var(--space-xl);
+      padding-inline: var(--space-md);
+      position: relative;
+    }
+
+    @media (min-width: 769px) {
+      section {
+        padding-block: var(--space-2xl);
+        padding-inline: var(--space-xl);
+      }
+    }
+
+    .section-container {
+      max-inline-size: var(--max-width);
+      margin-inline: auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-block-end: var(--space-xl);
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-800);
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+      color: var(--light);
+      margin-block-end: var(--space-sm);
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      inset-block-end: -0.5rem;
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+      inline-size: 60px;
+      block-size: 4px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: var(--border-radius-sm);
+    }
+
+    .section-subtitle {
+      font-size: var(--fs-500);
+      color: var(--gray-light);
+      max-inline-size: 60ch;
+      margin-inline: auto;
+      margin-block-start: var(--space-md);
+    }
+
+    /* ========================================
+       ABOUT SECTION
+       ======================================== */
+    
+    .about-section {
+      background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 50%, var(--darker) 100%);
+      position: relative;
+    }
+
+    .about-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1920&h=1080&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.08;
+      z-index: 0;
+    }
+
+    .about-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-grid {
+      display: grid;
+      gap: var(--space-lg);
+      margin-block-start: var(--space-lg);
+    }
+
+    @media (min-width: 769px) {
+      .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-xl);
+      }
+    }
+
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .about-content h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-700);
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .about-content p {
+      font-size: var(--fs-500);
+      line-height: 1.4;
+      color: var(--gray-light);
+    }
+
+    .about-image {
+      position: relative;
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .about-image img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .about-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(196, 30, 10, 0.3) 100%);
+      pointer-events: none;
+    }
+
+    /* ========================================
+       FEATURES SECTION
+       ======================================== */
+    
+    .features-section {
+      background: var(--dark);
+      position: relative;
+    }
+
+    .features-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .features-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .features-grid {
+      display: grid;
+      gap: var(--space-md);
+      margin-block-start: var(--space-lg);
+    }
+
+    @media (min-width: 640px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+      }
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, rgba(26, 26, 31, 0.8) 0%, rgba(13, 13, 16, 0.8) 100%);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(196, 30, 10, 0.15) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(196, 30, 10, 0.3);
+    }
+
+    .feature-icon {
+      inline-size: 60px;
+      block-size: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--border-radius-md);
+      margin-block-end: var(--space-md);
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-icon i {
+      font-size: var(--fs-700);
+      color: var(--light);
+    }
+
+    .feature-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-600);
+      color: var(--light);
+      margin-block-end: var(--space-sm);
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-card p {
+      font-size: var(--fs-400);
+      color: var(--gray-light);
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========================================
+       STATS SECTION
+       ======================================== */
+    
+    .stats-section {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--darker) 50%, var(--primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,215,0,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .stats-grid {
+      display: grid;
+      gap: var(--space-lg);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 640px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: var(--space-lg);
+      background: rgba(13, 13, 16, 0.6);
+      border-radius: var(--border-radius-lg);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all var(--transition-base);
+    }
+
+    .stat-card:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+    }
+
+    .stat-icon {
+      font-size: var(--fs-800);
+      color: var(--accent);
+      margin-block-end: var(--space-sm);
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-800);
+      color: var(--light);
+      display: block;
+      margin-block-end: var(--space-xs);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: var(--fs-500);
+      color: var(--gray-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* ========================================
+       TIMELINE SECTION
+       ======================================== */
+    
+    .timeline-section {
+      background: var(--darker);
+      position: relative;
+    }
+
+    .timeline-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&h=1080&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.06;
+      z-index: 0;
+    }
+
+    .timeline-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline {
+      position: relative;
+      max-inline-size: 900px;
+      margin-inline: auto;
+      margin-block-start: var(--space-xl);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-inline-start: 60px;
+      padding-block-start: 0;
+      padding-block-end: var(--space-xl);
+    }
+
+    .timeline-item:last-child {
+      padding-block-end: 0;
+    }
+
+    /* Vertical line on each item - hidden on last item */
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 20px;
+      inset-block-start: calc(var(--space-lg) + 0.45rem);
+      block-size: 100%;
+      inline-size: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+      z-index: 0;
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    @media (min-width: 769px) {
+      .timeline-item {
+        inline-size: 50%;
+        padding-inline-start: 0;
+        padding-inline-end: var(--space-xl);
+      }
+
+      .timeline-item::before {
+        inset-inline-start: auto;
+        inset-inline-end: -1px;
+      }
+
+      .timeline-item:nth-child(even) {
+        margin-inline-start: 50%;
+        padding-inline-start: var(--space-xl);
+        padding-inline-end: 0;
+      }
+
+      .timeline-item:nth-child(even)::before {
+        inset-inline-start: -1px;
+        inset-inline-end: auto;
+      }
+    }
+
+    .timeline-marker {
+      position: absolute;
+      inset-inline-start: 5px;
+      inset-block-start: calc(var(--space-lg) + 0.45rem);
+      inline-size: 30px;
+      block-size: 30px;
+      background: var(--accent);
+      border: 4px solid var(--darker);
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 0 6px rgba(255, 215, 0, 0.2);
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .timeline-item.visible .timeline-marker {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (min-width: 769px) {
+      .timeline-marker {
+        inset-inline-start: auto;
+        inset-inline-end: -15px;
+      }
+
+      .timeline-item:nth-child(even) .timeline-marker {
+        inset-inline-start: -15px;
+        inset-inline-end: auto;
+      }
+    }
+
+    .timeline-content {
+      background: linear-gradient(135deg, rgba(26, 26, 31, 0.8) 0%, rgba(13, 13, 16, 0.8) 100%);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .timeline-item.visible .timeline-content {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (min-width: 769px) {
+      .timeline-item:nth-child(even) .timeline-content {
+        transform: translateX(30px);
+      }
+
+      .timeline-item:nth-child(even).visible .timeline-content {
+        transform: translateX(0);
+      }
+    }
+
+    .timeline-content h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-600);
+      color: var(--accent);
+      margin-block-end: var(--space-xs);
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-year {
+      font-size: var(--fs-400);
+      color: var(--primary-light);
+      font-weight: 600;
+      margin-block-end: var(--space-sm);
+    }
+
+    .timeline-content p {
+      font-size: var(--fs-400);
+      color: var(--gray-light);
+      line-height: 1.4;
+    }
+
+    /* ========================================
+       GALLERY SECTION
+       ======================================== */
+    
+    .gallery-section {
+      background: var(--dark);
+      position: relative;
+    }
+
+    .gallery-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1920&h=1080&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.04;
+      z-index: 0;
+    }
+
+    .gallery-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-grid {
+      display: grid;
+      gap: var(--space-md);
+      margin-block-start: var(--space-lg);
+    }
+
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-lg);
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition-base);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      z-index: var(--z-base);
+    }
+
+    .gallery-item img {
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(196, 30, 10, 0.8) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-md);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-caption {
+      color: var(--light);
+      font-size: var(--fs-500);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .gallery-caption i {
+      font-size: var(--fs-600);
+      color: var(--accent);
+    }
+
+    /* ========================================
+       CONTACT SECTION
+       ======================================== */
+    
+    .contact-section {
+      background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
+      position: relative;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=1920&h=1080&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .contact-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: var(--space-xl);
+      margin-block-start: var(--space-xl);
+    }
+
+    @media (min-width: 769px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: rgba(26, 26, 31, 0.5);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--border-radius-lg);
+      transition: all var(--transition-base);
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+      transform: translateX(5px);
+      box-shadow: 0 10px 30px rgba(196, 30, 10, 0.2);
+    }
+
+    .contact-icon {
+      inline-size: 50px;
+      block-size: 50px;
+      min-inline-size: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--border-radius-md);
+    }
+
+    .contact-icon i {
+      font-size: var(--fs-600);
+      color: var(--light);
+    }
+
+    .contact-details h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-500);
+      color: var(--light);
+      margin-block-end: var(--space-xs);
+      letter-spacing: 0.05em;
+    }
+
+    .contact-details a,
+    .contact-details p {
+      font-size: var(--fs-400);
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color var(--transition-base);
+    }
+
+    .contact-details a:hover {
+      color: var(--accent);
+    }
+
+    .contact-form {
+      background: rgba(26, 26, 31, 0.5);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .form-group {
+      margin-block-end: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: var(--fs-400);
+      font-weight: 600;
+      color: var(--light);
+      margin-block-end: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .form-group label i {
+      color: var(--accent);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      inline-size: 100%;
+      padding: var(--space-sm);
+      background: rgba(13, 13, 16, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--border-radius-md);
+      color: var(--light);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: var(--fs-400);
+      transition: all var(--transition-base);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+    }
+
+    .form-group textarea {
+      min-block-size: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      inline-size: 100%;
+      padding-block: var(--space-xs);
+      padding-inline: var(--space-md);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--light);
+      border: none;
+      border-radius: var(--border-radius-md);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: var(--fs-400);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-block-size: 44px;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(196, 30, 10, 0.4);
+    }
+
+    .submit-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .submit-btn i {
+      transition: transform var(--transition-base);
+    }
+
+    .submit-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    /* ========================================
+       FOOTER
+       ======================================== */
+    
+    footer {
+      background: var(--darker);
+      border-block-start: 1px solid rgba(255, 215, 0, 0.2);
+      padding-block-start: var(--space-xl);
+      padding-block-end: var(--space-md);
+      padding-inline: var(--space-md);
+    }
+
+    @media (min-width: 769px) {
+      footer {
+        padding-inline: var(--space-xl);
+      }
+    }
+
+    .footer-content {
+      margin-inline: auto;
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 769px) {
+      .footer-content {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: var(--space-xl);
+      }
+    }
+
+    .footer-section h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-600);
+      color: var(--accent);
+      margin-block-end: var(--space-md);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-section p {
+      font-size: var(--fs-400);
+      color: var(--gray-light);
+      line-height: 1.4;
+      margin-block-end: var(--space-md);
+    }
+
+    .social-links {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      inline-size: 44px;
+      block-size: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(26, 26, 31, 0.8);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: var(--border-radius-md);
+      color: var(--light);
+      text-decoration: none;
+      transition: all var(--transition-base);
+    }
+
+    .social-link:hover,
+    .social-link:focus-visible {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(196, 30, 10, 0.3);
+      outline: none;
+    }
+
+    .social-link i {
+      font-size: var(--fs-500);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      font-size: var(--fs-400);
+      transition: color var(--transition-base);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .footer-links a i {
+      color: var(--accent);
+      font-size: var(--fs-300);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-inline-start: var(--space-xs);
+    }
+
+    .footer-bottom {
+      margin-block-start: var(--space-lg);
+      padding-block-start: var(--space-md);
+      padding-block-end: 0;
+      border-block-start: 1px solid rgba(255, 215, 0, 0.1);
+      text-align: center;
+      color: var(--gray);
+      font-size: var(--fs-300);
+    }
+
+    .footer-bottom a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--transition-base);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--primary-light);
+    }
+
+    /* ========================================
+       SCROLL TO TOP BUTTON
+       ======================================== */
+    
+    .scroll-to-top {
+      position: fixed;
+      inset-block-end: var(--space-md);
+      inset-inline-end: var(--space-md);
+      inline-size: 44px;
+      block-size: 44px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: var(--z-sticky);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all var(--transition-base);
+      box-shadow: 0 4px 15px rgba(196, 30, 10, 0.4);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(196, 30, 10, 0.6);
+    }
+
+    .scroll-to-top:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .scroll-to-top i {
+      color: var(--light);
+      font-size: var(--fs-400);
+      transition: transform var(--transition-base);
+    }
+
+    .scroll-to-top:hover i {
+      transform: translateY(-2px);
+    }
+
+    @media (min-width: 769px) {
+      .scroll-to-top {
+        inline-size: 50px;
+        block-size: 50px;
+        inset-block-end: var(--space-lg);
+        inset-inline-end: var(--space-lg);
+      }
+
+      .scroll-to-top i {
+        font-size: var(--fs-500);
+      }
+    }
+
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, -10px);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ========================================
+       PRINT STYLES
+       ======================================== */
+    
+    @media print {
+      header,
+      .hero-cta,
+      .scroll-indicator,
+      .menu-toggle,
+      .mobile-overlay,
+      .contact-form,
+      footer {
+        display: none;
+      }
+
+      body {
+        background: white;
+        color: black;
+      }
+
+      section {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header & Navigation -->
+  <header>
+    <nav>
+      <a href="#" class="logo" aria-label="Extreme Motorsport Racing Home">
+        <i class="fas fa-flag-checkered" aria-hidden="true"></i>
+        <span>XMR</span>
+      </a>
+      
+      <button class="menu-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+        <i class="fas fa-bars menu-icon" aria-hidden="true"></i>
+        <i class="fas fa-times close-icon" aria-hidden="true"></i>
+      </button>
+
+      <ul class="nav-links">
+        <li><a href="#about"><i class="fas fa-user" aria-hidden="true"></i> About</a></li>
+        <li><a href="#features"><i class="fas fa-star" aria-hidden="true"></i> Features</a></li>
+        <li><a href="#timeline"><i class="fas fa-trophy" aria-hidden="true"></i> Journey</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="video-container">
+        <video class="video-bg" autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect fill='%230d0d10' width='1920' height='1080'/%3E%3C/svg%3E" aria-hidden="true">
+          <source src="https://videos.pexels.com/video-files/3045163/3045163-uhd_2560_1440_24fps.mp4" type="video/mp4">
+        </video>
+        <canvas id="speed-canvas" class="speed-canvas" aria-hidden="true"></canvas>
+      </div>
+      
+      <div class="hero-content">
+        <h1 class="hero-title">Pushing Limits Beyond Speed</h1>
+        <p class="hero-subtitle">Professional Racing • Custom Builds • Pure Performance</p>
+        <a href="#contact" class="hero-cta">
+          <span>Get in Touch</span>
+          <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <a href="#about" class="scroll-indicator" aria-label="Scroll down to content">
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">About the Driver</h2>
+          <p class="section-subtitle">Dedicated to the craft of extreme motorsport racing with a passion for precision engineering and high-performance vehicles.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-content">
+            <h3>Racing Philosophy</h3>
+            <p>Racing isn't just about speed; it's about the perfect harmony between driver, machine, and track. Every millisecond counts, every adjustment matters, and every race is an opportunity to push beyond previous limits.</p>
+            
+            <p>With over a decade of experience in competitive motorsports, I've learned that success comes from meticulous preparation, continuous learning, and an unwavering commitment to excellence both on and off the track.</p>
+
+            <p>From grassroots racing to professional circuits, the journey has been about constant evolution, adapting to new challenges, and never settling for anything less than peak performance.</p>
+          </div>
+
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=600&fit=crop" alt="Race car on professional racing track" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">What Sets Us Apart</h2>
+          <p class="section-subtitle">Combining cutting-edge technology with years of racing expertise to deliver unmatched performance.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+            </div>
+            <h3>High-Speed Performance</h3>
+            <p>Custom-tuned engines delivering maximum horsepower and torque for dominating the competition on any track configuration.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-cogs" aria-hidden="true"></i>
+            </div>
+            <h3>Precision Engineering</h3>
+            <p>Every component is carefully selected and optimized for peak performance, reliability, and competitive advantage.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-tools" aria-hidden="true"></i>
+            </div>
+            <h3>Custom Builds</h3>
+            <p>Bespoke vehicle modifications tailored to specific racing disciplines, track conditions, and driver preferences.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line" aria-hidden="true"></i>
+            </div>
+            <h3>Data Analysis</h3>
+            <p>Advanced telemetry systems providing real-time insights for continuous performance optimization and strategic decisions.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt" aria-hidden="true"></i>
+            </div>
+            <h3>Safety First</h3>
+            <p>State-of-the-art safety equipment and protocols ensuring maximum protection without compromising performance capabilities.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users" aria-hidden="true"></i>
+            </div>
+            <h3>Expert Team</h3>
+            <p>Experienced crew of mechanics, engineers, and strategists working together to achieve championship-level results.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="section-container">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <i class="fas fa-trophy stat-icon" aria-hidden="true"></i>
+            <span class="stat-number" data-target="47">0</span>
+            <p class="stat-label">Race Wins</p>
+          </article>
+
+          <article class="stat-card">
+            <i class="fas fa-flag-checkered stat-icon" aria-hidden="true"></i>
+            <span class="stat-number" data-target="12">0</span>
+            <p class="stat-label">Championships</p>
+          </article>
+
+          <article class="stat-card">
+            <i class="fas fa-clock stat-icon" aria-hidden="true"></i>
+            <span class="stat-number" data-target="230">0</span>
+            <p class="stat-label">Top Speed MPH</p>
+          </article>
+
+          <article class="stat-card">
+            <i class="fas fa-calendar-alt stat-icon" aria-hidden="true"></i>
+            <span class="stat-number" data-target="10">0</span>
+            <p class="stat-label">Years Racing</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Racing Journey</h2>
+          <p class="section-subtitle">A decade of dedication, victories, and continuous evolution in the world of professional motorsports.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>First Professional Win</h3>
+              <p class="timeline-year">2015</p>
+              <p>Secured first professional victory at the Regional Championship, marking the beginning of a competitive racing career with a podium finish against seasoned veterans.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>National Championship Title</h3>
+              <p class="timeline-year">2017</p>
+              <p>Claimed the National Championship title after a season of consistent performance, strategic racing, and overcoming mechanical challenges.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Speed Record Broken</h3>
+              <p class="timeline-year">2019</p>
+              <p>Set a new track speed record at 230 MPH, pushing the limits of both driver skill and vehicle engineering in extreme conditions.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>International Competition</h3>
+              <p class="timeline-year">2021</p>
+              <p>Expanded to international racing circuits, competing against world-class drivers and securing multiple podium finishes on global stages.</p>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>Custom Build Launch</h3>
+              <p class="timeline-year">2023</p>
+              <p>Launched custom vehicle build program, combining racing expertise with engineering innovation to create championship-winning machines.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Race Gallery</h2>
+          <p class="section-subtitle">Capturing the intensity, precision, and adrenaline of professional motorsport racing.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=450&fit=crop" alt="Racing car on professional track" loading="lazy">
+            <figcaption class="gallery-overlay">
+              <span class="gallery-caption">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Track Day
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&h=450&fit=crop" alt="High-performance race car detail" loading="lazy">
+            <figcaption class="gallery-overlay">
+              <span class="gallery-caption">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Custom Build
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600&h=450&fit=crop" alt="Racing car in motion" loading="lazy">
+            <figcaption class="gallery-overlay">
+              <span class="gallery-caption">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Full Speed
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop" alt="Racing car cockpit view" loading="lazy">
+            <figcaption class="gallery-overlay">
+              <span class="gallery-caption">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Driver's View
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=600&h=450&fit=crop" alt="Racing team working on vehicle" loading="lazy">
+            <figcaption class="gallery-overlay">
+              <span class="gallery-caption">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Pit Crew
+              </span>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1551830820-330a71b99659?w=600&h=450&fit=crop" alt="Victory celebration on podium" loading="lazy">
+            <figcaption class="gallery-overlay">
+              <span class="gallery-caption">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Victory Lane
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-subtitle">Interested in sponsorship, partnerships, or custom builds? Let's discuss how we can work together.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <article class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Email</h3>
+                <a href="mailto:contact@xmr-racing.com">contact@xmr-racing.com</a>
+              </div>
+            </article>
+
+            <article class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Phone</h3>
+                <a href="tel:+15555551234">+1 (555) 555-1234</a>
+              </div>
+            </article>
+
+            <article class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Location</h3>
+                <p>Professional Racing Circuit<br>Motorsport District, USA</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="contact-form">
+            <form id="contactForm" action="#" method="POST">
+              <div class="form-group">
+                <label for="name">
+                  <i class="fas fa-user" aria-hidden="true"></i>
+                  Name
+                </label>
+                <input type="text" id="name" name="name" required aria-required="true" placeholder="Your name">
+              </div>
+
+              <div class="form-group">
+                <label for="email">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                  Email
+                </label>
+                <input type="email" id="email" name="email" required aria-required="true" placeholder="your.email@example.com">
+              </div>
+
+              <div class="form-group">
+                <label for="message">
+                  <i class="fas fa-comment" aria-hidden="true"></i>
+                  Message
+                </label>
+                <textarea id="message" name="message" required aria-required="true" placeholder="Tell us about your inquiry..."></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">
+                <span>Send Message</span>
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Extreme Motorsport Racing</h3>
+        <p>Dedicated to pushing the boundaries of speed, precision, and performance in professional motorsports. Join us on the journey to championship glory.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter">
+            <i class="fab fa-twitter" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="YouTube">
+            <i class="fab fa-youtube" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#about"><i class="fas fa-chevron-right" aria-hidden="true"></i> About</a></li>
+          <li><a href="#features"><i class="fas fa-chevron-right" aria-hidden="true"></i> Features</a></li>
+          <li><a href="#timeline"><i class="fas fa-chevron-right" aria-hidden="true"></i> Journey</a></li>
+          <li><a href="#contact"><i class="fas fa-chevron-right" aria-hidden="true"></i> Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Custom Builds</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Performance Tuning</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Race Consulting</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right" aria-hidden="true"></i> Sponsorship</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Extreme Motorsport Racing. All rights reserved. Built with passion for speed. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    'use strict';
+
+    // ========================================
+    // UTILITY FUNCTIONS
+    // ========================================
+    
+    const debounce = (func, wait) => {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    };
+
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return function(...args) {
+        if (!inThrottle) {
+          func.apply(this, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    };
+
+    // ========================================
+    // CANVAS SPEED LINES ANIMATION
+    // ========================================
+    
+    class SpeedLinesAnimation {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.lines = [];
+        this.numLines = 50;
+        this.animationId = null;
+        this.isVisible = true;
+        
+        this.init();
+      }
+
+      init() {
+        this.resizeCanvas();
+        window.addEventListener('resize', debounce(() => this.resizeCanvas(), 250));
+        this.createLines();
+        this.setupIntersectionObserver();
+        this.start();
+      }
+
+      resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      createLines() {
+        this.lines = [];
+        for (let i = 0; i < this.numLines; i++) {
+          this.lines.push(new SpeedLine(this.canvas));
+        }
+      }
+
+      setupIntersectionObserver() {
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              this.isVisible = entry.isIntersecting;
+              if (this.isVisible) {
+                this.start();
+              } else {
+                this.stop();
+              }
+            });
+          }, { threshold: 0.1 });
+          
+          observer.observe(this.canvas);
+        }
+      }
+
+      animate() {
+        if (!this.isVisible) return;
+        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.lines.forEach(line => {
+          line.update();
+          line.draw(this.ctx);
+        });
+        
+        this.animationId = requestAnimationFrame(() => this.animate());
+      }
+
+      start() {
+        if (!this.animationId && this.isVisible) {
+          this.animate();
+        }
+      }
+
+      stop() {
+        if (this.animationId) {
+          cancelAnimationFrame(this.animationId);
+          this.animationId = null;
+        }
+      }
+    }
+
+    class SpeedLine {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * this.canvas.width;
+        this.y = Math.random() * this.canvas.height;
+        this.length = Math.random() * 80 + 20;
+        this.speed = Math.random() * 10 + 5;
+        this.opacity = Math.random() * 0.5 + 0.3;
+      }
+
+      update() {
+        this.x += this.speed;
+        if (this.x > this.canvas.width + this.length) {
+          this.reset();
+          this.x = -this.length;
+        }
+      }
+
+      draw(ctx) {
+        ctx.strokeStyle = `rgba(255, 215, 0, ${this.opacity})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.length, this.y);
+        ctx.stroke();
+      }
+    }
+
+    // ========================================
+    // NAVIGATION MANAGEMENT
+    // ========================================
+    
+    class NavigationManager {
+      constructor() {
+        this.header = document.querySelector('header');
+        this.menuToggle = document.querySelector('.menu-toggle');
+        this.navLinks = document.querySelector('.nav-links');
+        this.mobileOverlay = document.querySelector('.mobile-overlay');
+        this.navItems = document.querySelectorAll('.nav-links a');
+        this.lastScroll = 0;
+        
+        this.init();
+      }
+
+      init() {
+        this.setupScrollHandler();
+        this.setupMobileMenu();
+        this.setupSmoothScroll();
+        this.setupActiveSection();
+      }
+
+      setupScrollHandler() {
+        const handleScroll = throttle(() => {
+          const currentScroll = window.scrollY;
+          
+          if (currentScroll > 100) {
+            this.header.classList.add('scrolled');
+          } else {
+            this.header.classList.remove('scrolled');
+          }
+          
+          this.updateActiveSection();
+          
+          this.lastScroll = currentScroll;
+        }, 100);
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      setupActiveSection() {
+        // Set initial active section
+        this.updateActiveSection();
+      }
+
+      updateActiveSection() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPosition = window.scrollY + 100; // Offset for header
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            // Remove active class from all nav links
+            this.navItems.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to current section's nav link
+            const activeLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+            if (activeLink) {
+              activeLink.classList.add('active');
+            }
+          }
+        });
+      }
+
+      setupMobileMenu() {
+        if (!this.menuToggle || !this.navLinks || !this.mobileOverlay) return;
+
+        this.menuToggle.addEventListener('click', () => this.toggleMenu());
+        this.mobileOverlay.addEventListener('click', () => this.closeMenu());
+        
+        this.navItems.forEach(item => {
+          item.addEventListener('click', () => this.closeMenu());
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.navLinks.classList.contains('active')) {
+            this.closeMenu();
+            this.menuToggle.focus();
+          }
+        });
+      }
+
+      toggleMenu() {
+        const isExpanded = this.menuToggle.getAttribute('aria-expanded') === 'true';
+        
+        this.menuToggle.setAttribute('aria-expanded', !isExpanded);
+        this.navLinks.classList.toggle('active');
+        this.mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = !isExpanded ? 'hidden' : '';
+      }
+
+      closeMenu() {
+        this.menuToggle.setAttribute('aria-expanded', 'false');
+        this.navLinks.classList.remove('active');
+        this.mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = anchor.getAttribute('href');
+            const target = document.querySelector(targetId);
+            
+            if (target) {
+              const headerHeight = this.header.offsetHeight;
+              const targetPosition = target.offsetTop - headerHeight;
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
+      }
+    }
+
+    // ========================================
+    // INTERSECTION OBSERVER ANIMATIONS
+    // ========================================
+    
+    class AnimationObserver {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.observeElements('.feature-card', this.animateCards);
+        this.observeElements('.timeline-item', this.animateTimeline);
+        this.observeStats();
+      }
+
+      observeElements(selector, callback) {
+        if (!('IntersectionObserver' in window)) return;
+
+        const elements = document.querySelectorAll(selector);
+        if (elements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              callback(entry, index);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -100px 0px'
+        });
+
+        elements.forEach(element => observer.observe(element));
+      }
+
+      animateCards(entry, index) {
+        setTimeout(() => {
+          entry.target.style.animation = 'slideUp 0.6s ease-out forwards';
+        }, index * 100);
+      }
+
+      animateTimeline(entry, index) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, index * 100);
+      }
+
+      observeStats() {
+        if (!('IntersectionObserver' in window)) return;
+
+        const statsSection = document.querySelector('.stats-section');
+        if (!statsSection) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.animateCounters();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+      }
+
+      animateCounters() {
+        const counters = document.querySelectorAll('.stat-number');
+        
+        counters.forEach(counter => {
+          const target = parseInt(counter.getAttribute('data-target'));
+          const duration = 2000;
+          const step = target / (duration / 16);
+          let current = 0;
+
+          const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+              counter.textContent = target;
+              clearInterval(timer);
+            } else {
+              counter.textContent = Math.floor(current);
+            }
+          }, 16);
+        });
+      }
+    }
+
+    // ========================================
+    // VIDEO MANAGEMENT
+    // ========================================
+    
+    class VideoManager {
+      constructor() {
+        this.video = document.querySelector('.video-bg');
+        this.init();
+      }
+
+      init() {
+        if (!this.video) return;
+
+        this.video.play().catch(err => {
+          console.log('Video autoplay prevented:', err);
+        });
+
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        if (!('IntersectionObserver' in window)) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.video.play().catch(() => {});
+            } else {
+              this.video.pause();
+            }
+          });
+        }, { threshold: 0.25 });
+
+        observer.observe(this.video);
+      }
+    }
+
+    // ========================================
+    // FEATURE CARD MOUSE TRACKING
+    // ========================================
+    
+    class CardMouseTracker {
+      constructor() {
+        this.cards = document.querySelectorAll('.feature-card');
+        this.init();
+      }
+
+      init() {
+        this.cards.forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            card.style.setProperty('--mouse-x', `${x}%`);
+            card.style.setProperty('--mouse-y', `${y}%`);
+          });
+        });
+      }
+    }
+
+    // ========================================
+    // FORM HANDLING
+    // ========================================
+    
+    class FormHandler {
+      constructor() {
+        this.form = document.getElementById('contactForm');
+        this.init();
+      }
+
+      init() {
+        if (!this.form) return;
+
+        this.form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.handleSubmit();
+        });
+      }
+
+      handleSubmit() {
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData);
+        
+        console.log('Form submitted:', data);
+        
+        // Show success message (in production, this would be an actual form submission)
+        alert('Thank you for your message! We will get back to you soon.');
+        this.form.reset();
+      }
+    }
+
+    // ========================================
+    // SCROLL TO TOP BUTTON
+    // ========================================
+    
+    class ScrollToTop {
+      constructor() {
+        this.button = document.querySelector('.scroll-to-top');
+        this.init();
+      }
+
+      init() {
+        if (!this.button) return;
+
+        // Show/hide button on scroll
+        window.addEventListener('scroll', throttle(() => {
+          if (window.scrollY > 300) {
+            this.button.classList.add('visible');
+          } else {
+            this.button.classList.remove('visible');
+          }
+        }, 100), { passive: true });
+
+        // Scroll to top on click
+        this.button.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+    }
+
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize canvas animation
+      const canvas = document.getElementById('speed-canvas');
+      if (canvas) {
+        new SpeedLinesAnimation(canvas);
+      }
+
+      // Initialize navigation
+      new NavigationManager();
+
+      // Initialize animations
+      new AnimationObserver();
+
+      // Initialize video management
+      new VideoManager();
+
+      // Initialize card mouse tracking
+      new CardMouseTracker();
+
+      // Initialize form handling
+      new FormHandler();
+
+      // Initialize scroll to top button
+      new ScrollToTop();
+
+      // Focus management for accessibility
+      document.querySelectorAll('a, button, input, textarea').forEach(element => {
+        element.addEventListener('focus', function() {
+          this.classList.add('focused');
+        });
+        
+        element.addEventListener('blur', function() {
+          this.classList.remove('focused');
+        });
+      });
+
+      // Announce page loaded for screen readers
+      const announcement = document.createElement('div');
+      announcement.setAttribute('role', 'status');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.className = 'sr-only';
+      announcement.textContent = 'Page loaded successfully';
+      document.body.appendChild(announcement);
+    });
+
+    // Handle visibility change for performance
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        // Pause any intensive operations when tab is hidden
+        console.log('Page hidden - pausing animations');
+      } else {
+        // Resume operations when tab is visible
+        console.log('Page visible - resuming animations');
+      }
+    });
+  </script>
+</body>
+</html>
